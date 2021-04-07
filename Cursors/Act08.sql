@@ -7,12 +7,13 @@ create procedure act8()
 begin
    declare recaptat bigint default 0;
    declare pressu bigint default 0;
-   declare titol varchar(30);
+   declare titol varchar(40);
    declare rendibilitat varchar(15);
    declare final int default false;
    
    declare elcursor cursor for
-      select titulo, recaudacio, pressupost from peliculas;
+      select titol_peli, recaudacio_peli, pressupost_peli
+      from PELLICULES;
 
    declare continue handler for not found set final = 1;
    open elcursor;
@@ -29,11 +30,15 @@ begin
          set rendibilitat = "Suficient";
       else
          set rendibilitat = "Bona";
-      end if;   
+      end if;
+      
       select titol, rendibilitat;
+   
    end loop elbucle; 
    close elcursor;
 end//
+
 delimiter ;
-call act8();
+
+-- call act8();
 
